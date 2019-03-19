@@ -14,11 +14,11 @@ Our settings folder is called apile
 We are going to extend the existing user model
 Our theme - support people who advocate for homeless
 
-Models
+# Models
 
 User, but called something different. Submitters, because they submit comments, links, votes.
-Post - URL, slug, date_added, submitter, title, 
-Comment
-Vote
+Post - URL, slug, date_added, submitter, title, description
+Comment - (comments on posts), text, datetime_added, (created by) submitter,  
+Vote - (comments on posts), datetime_added, (created by) submitter,  
 
 
