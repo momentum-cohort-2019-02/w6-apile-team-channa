@@ -55,3 +55,6 @@ User, but called something different. Submitters, because they submit comments, 
 - [ ]  post_detail (detail, add vote, add comment, see comments, count votes) **Chinh**
 - [ ]  post_form (create a post) **Daniel**
 - [ ]  user_detail (detail, see user posts, see user-voted posts, see user comments **Chinh**
+
+# Decision about URLS
+redirected URLS staying in core (high-level URLS stay in apile; app-level URLS stay in core)
