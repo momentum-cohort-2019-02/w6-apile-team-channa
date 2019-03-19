@@ -22,11 +22,6 @@ class Post(models.Model):
 
     slug = models.SlugField(unique=True, null=True, blank=True) 
 
-    commented_by = models.ManyToManyField(to=Submitter, related_name='commented_posts')
-        # ManyToManyField used b/c users can comment on many posts and posts can have many user comments
-        # 'through' option allows an intermediate table to be specified
-        # https://docs.djangoproject.com/en/2.1/ref/models/fields/#field-types
-
     voted_by = models.ManyToManyField(to=Submitter, related_name='voted_posts', through='Vote')
         # ManyToManyField used b/c users can vote on many posts and posts can have many user votes
 
@@ -65,8 +60,26 @@ class Vote(models.Model):
         # useful for creation of timestamps
 
 class Comment(models.Model):
+    """
+    Model representing a comment on a post
+    """
     commenter = models.ForeignKey(Submitter, on_delete=models.CASCADE, null=True)
+        # ForeignKey used b/c Comment can only have one author/User, but users can have multiple comments
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     commented_at = models.DateTimeField(auto_now_add=True)
-    text = models.TextField()
+    text = models.TextField(max_length=2000, help_text="Enter comment about post here.")
+
+    class Meta:
+        ordering = ["commented_at"]
+
+    def __str__(self):
+        """
+        String for representing the Model object.
+        """
+        len_title=75
+        if len(self.text) > len_title:
+            titlestring = self.text[:len_title] + '...'
+        else:
+            titlestring = self.text
+        return titlestring
        
