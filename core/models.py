@@ -12,7 +12,7 @@ class Post(models.Model):
     """Model representing a post (but not a specific post)."""
     title = models.CharField(max_length=200)
 
-    poster = models.ForeignKey(Submitter, on_delete=models.CASCADE)
+    poster = models.ForeignKey(Submitter, on_delete=models.CASCADE, null=True)
 
     description = models.TextField(max_length=1000, help_text='Enter a brief description of the post')
     
@@ -52,7 +52,7 @@ class Post(models.Model):
         return reverse('index')
 
 class Vote(models.Model):
-    voter = models.ForeignKey(Submitter, on_delete=models.CASCADE)
+    voter = models.ForeignKey(Submitter, on_delete=models.CASCADE, null=True)
         # https://docs.djangoproject.com/en/2.1/ref/models/fields/#foreign-key-arguments
         # Foreign Key used b/c a user can only upvote a book once, but a user can have many book upvotes
         # 'User' model class argument is declared to connect the relationship between the 'Favorite' and 'User' classes
@@ -65,7 +65,7 @@ class Vote(models.Model):
         # useful for creation of timestamps
 
 class Comment(models.Model):
-    commenter = models.ForeignKey(Submitter, on_delete=models.CASCADE)
+    commenter = models.ForeignKey(Submitter, on_delete=models.CASCADE, null=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     commented_at = models.DateTimeField(auto_now_add=True)
     text = models.TextField()
