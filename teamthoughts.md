@@ -25,6 +25,8 @@ User, but called something different. Submitters, because they submit comments, 
  * poster (which is a submitter,) 
  * title, 
  * description
+ * (voted_as vote) ManytoMany to vote
+ * (commented_as comment) ManytoMany on comment
  
 **Comment 
  * (comments on posts), 
