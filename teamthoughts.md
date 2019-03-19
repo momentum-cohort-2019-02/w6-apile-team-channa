@@ -4,4 +4,4 @@
 - [ ] Chinh is going to set up Postgres
 - [ ] Chinh is going to set up gitignore and other basics
 - [ ] Everyone will think about models
-- [ ] Anna will clean up feature branch mess
+- [x] Anna will clean up feature branch mess
