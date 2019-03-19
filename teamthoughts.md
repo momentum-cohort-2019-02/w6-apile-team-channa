@@ -1,4 +1,4 @@
-# To Do List
+# To Do List for MONDAY
 
 - [ ] Daniel is going to set up Django project
 - [ ] Chinh is going to set up Postgres
@@ -39,4 +39,10 @@ User, but called something different. Submitters, because they submit comments, 
  * datetime_added, 
  * (created by) voter (which is a submitter),  
 
+
+# To Do List for TUESDAY EARLY
+
+- [ ] Daniel is going to do registration redux
+- [ ] Chinh is going to do models.py
+- [ ] Anna is going to get dummy data.
 
