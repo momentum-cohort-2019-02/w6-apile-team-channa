@@ -22,7 +22,7 @@ class Post(models.Model):
 
     slug = models.SlugField(unique=True, null=True, blank=True) 
 
-    commented_by = models.ManyToManyField(to=Submitter, related_name='commented_posts', through='Comment')
+    commented_by = models.ManyToManyField(to=Submitter, related_name='commented_posts')
         # ManyToManyField used b/c users can comment on many posts and posts can have many user comments
         # 'through' option allows an intermediate table to be specified
         # https://docs.djangoproject.com/en/2.1/ref/models/fields/#field-types
