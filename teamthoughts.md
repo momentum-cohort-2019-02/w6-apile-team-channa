@@ -22,7 +22,7 @@ User, but called something different. Submitters, because they submit comments, 
  * URL,
  * slug, 
  * date_added, 
- * submitter, 
+ * poster (which is a submitter,) 
  * title, 
  * description
  
@@ -30,11 +30,11 @@ User, but called something different. Submitters, because they submit comments, 
  * (comments on posts), 
  * text, 
  * datetime_added, 
- * (created by) submitter,  
+ * (created by) commentor (which is a submitter,  
  
 **Vote - 
  * (comments on posts), 
  * datetime_added, 
- * (created by) submitter,  
+ * (created by) voter (which is a submitter),  
 
 
