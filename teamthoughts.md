@@ -17,18 +17,21 @@ Our theme - support people who advocate for homeless
 # Models
 
 User, but called something different. Submitters, because they submit comments, links, votes.
-Post - 
+
+Post
  * URL,
  * slug, 
  * date_added, 
  * submitter, 
  * title, 
  * description
+ 
 Comment 
  * (comments on posts), 
  * text, 
  * datetime_added, 
  * (created by) submitter,  
+ 
 Vote - 
  * (comments on posts), 
  * datetime_added, 
