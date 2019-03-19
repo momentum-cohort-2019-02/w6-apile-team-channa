@@ -1,3 +1,5 @@
+# Team Thoughts
+
 # To Do List for MONDAY
 
 - [ ] Daniel is going to set up Django project
@@ -46,3 +48,10 @@ User, but called something different. Submitters, because they submit comments, 
 - [ ] Chinh is going to do models.py
 - [ ] Anna is going to get dummy data.
 
+
+# **Pages**
+
+- [ ]  index (list of posts (**Daniel** does base and index) 
+- [ ]  post_detail (detail, add vote, add comment, see comments, count votes) **Chinh**
+- [ ]  post_form (create a post) **later**
+- [ ]  user_detail (detail, see user posts, see user-voted posts, see user comments **Chinh**
