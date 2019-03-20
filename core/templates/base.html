@@ -11,27 +11,42 @@
             <!--insert relevant title here-->
             {% endblock title %}
         </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+        {% block meta %}{% endblock %}
     </head>
 
-        {% block header %}{% endblock header %}
-
+        {% comment %} <header>
+        {% if user.is_authenticated %}
+            <a href="{% url 'make-post' %}" class="">MAKE POST</a>
+            <a class="" href= "{% url 'user-detail' %}">MY PROFILE</a>
+        {% endif %}
+        </header> {% endcomment %}
     <body>
     <div>
-        <nav>
-            <a href="">Home</a>
-            {% if user.is_authenticated %}
-            <a href="{% url 'auth_logout' %}">Logout</a>
-            {% else %}
-            <a href="{% url 'auth_login' %}">Login</a>
-            <a href="{% url 'registration_register' %}">Register</a>
+
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link active" href="{% url 'index' %}">HOME</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_logout' %}">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'auth_login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'registration_register' %}" >Register</a>
+        </li>
         {% endif %}
-        </nav>
-    <h1>Insert relevant title here</h1>    
+    </ul>
+        
+        <h1>Insert relevant title here</h1>    
     </div>    
 
-    {% block content %}{% endblock content %}
+    {% block content %}{% endblock %}
 
     {% block footer %}{% endblock footer %}
     </body>
