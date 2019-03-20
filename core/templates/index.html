@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for post in posts %}
+
+        <li> 
+            <a href="">
+            <b>{{ post.title }}</b>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+
+{% endblock content %}
