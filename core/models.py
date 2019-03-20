@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Submitter(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    def __str__(self):
+        """String for representing the Submitter objects."""
+        return self.user.username
 
 class Post(models.Model):
     """Model representing a post (but not a specific post)."""
