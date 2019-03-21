@@ -27,7 +27,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('accounts/', include('registration.backends.default.urls')),
 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] 
+# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar
