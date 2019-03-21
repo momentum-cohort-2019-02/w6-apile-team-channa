@@ -3,6 +3,7 @@ from django.urls import reverse
     # Used to generate URLs by reversing the URL patterns
 from django.contrib.auth.models import User
     # Required to make use of 'User' class
+from django.utils.text import slugify
 
 # Create your models here.
 class Submitter(models.Model):
@@ -30,6 +31,22 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['-date_added',]
+
+    # 'save' and 'set_slug' functions used to automatically create a slug upon saving a post in the admin
+    def save(self, *args, **kwargs):
+        self.set_slug()
+        super().save(*args, **kwargs)
+
+    def set_slug(self):
+        if self.slug:
+            return
+        base_slug = slugify(self.title)
+        slug = base_slug
+        n = 0
+        while Post.objects.filter(slug=slug).count():
+            n += 1
+            slug = base_slug + "-" + str(n)
+        self.slug = slug[:50]
         
     def display_voted_by(self):
         """Create a string for the upvoted_by field. This is required to display voted_by in Admin."""
@@ -47,7 +64,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
-        return reverse('index')
+        return reverse('post-detail', args=[str(self.slug)])
 
 class Vote(models.Model):
     voter = models.ForeignKey(Submitter, on_delete=models.CASCADE, null=True)

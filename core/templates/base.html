@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block meta %}{% endblock %}
-    {% block title %}<!--insert relevant title here-->{% endblock title %}
+    <title>Home Advantage {% block title %}Register{% endblock title %}</title>
+        <!--added title to browser tab-->
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
