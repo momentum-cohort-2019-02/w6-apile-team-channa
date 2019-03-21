@@ -3,6 +3,8 @@ from django.urls import reverse
     # Used to generate URLs by reversing the URL patterns
 from django.contrib.auth.models import User
     # Required to make use of 'User' class
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.utils.text import slugify
 
 # Create your models here.
@@ -11,6 +13,16 @@ class Submitter(models.Model):
     def __str__(self):
         """String for representing the Submitter objects."""
         return self.user.username
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Submitter.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.submitter.save()    
+
 
 class Post(models.Model):
     """Model representing a post (but not a specific post)."""
