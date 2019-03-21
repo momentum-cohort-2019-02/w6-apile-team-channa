@@ -8,9 +8,34 @@
         {% for post in posts %}
 
         <li> 
-            <a href="{{ post.get_absolute_url }}">
-            <b>{{ post.title }}</b>
-            </a>
+            <a href="{{ post.url}}"><b>{{ post.title }}</b></a>
+                <!--changed from post.get_absolute_url to post.url, b/c we want to see the original article, not the post-detail-->
+            <p>posted by <a href="">{{ post.poster }}</a></p>
+
+            <!--vote button-->
+            <span>
+                {% if request.user.is_authenticated %}
+                    <form class="button_inline" action="{% url 'post_vote' post_pk=post.pk %}" method="POST">
+                    <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form-->
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                        <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input-->
+                    {% if post in request.user.submitter.voted_posts.all %}
+                        <!--'voted_posts' is the related name of the 'voted_by' field of the 'post' model-->
+                        <!--request.user.favorite_books.all-->
+                        <button class="unvote_button" type="submit">Unvote this post</button>
+                    {% else %}
+                        <button class="vote_button" type="submit">Vote this post</button>
+                    {% endif %}
+                    </form>
+                {% endif %}          
+            </span>
+
+            <span class="post_info">Voted {{ post.vote_set.count }} time(s) | </span>
+            <span class="post_info"><a href="{{ post.get_absolute_url }}">Commented {{ post.comment_set.count }} time(s)</a> | </span>
+                <!--click on comments count to get to post-detail page-->
+            <span class="post_info">added {{ post.date_added }}</span>
+
         </li>
         {% endfor %}
     </ul>
