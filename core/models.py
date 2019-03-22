@@ -3,6 +3,8 @@ from django.urls import reverse
     # Used to generate URLs by reversing the URL patterns
 from django.contrib.auth.models import User
     # Required to make use of 'User' class
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.utils.text import slugify
 
 # Create your models here.
@@ -14,6 +16,17 @@ class Submitter(models.Model):
     def get_absolute_url(self):
         return reverse('submitter_detail', args=[str(self.pk)])
         
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Submitter.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.submitter.save()    
+
+
 class Post(models.Model):
     """Model representing a post (but not a specific post)."""
     title = models.CharField(max_length=200)
@@ -77,7 +90,7 @@ class Vote(models.Model):
         # Foreign Key used b/c a user can only upvote a book once, but a user can have many book upvotes
         # 'User' model class argument is declared to connect the relationship between the 'Favorite' and 'User' classes
         # 'on_delete=models.CASCADE' argument deletes the object containing the ForeignKey, thus deletes the instance of the 'Favorite' if 'User' is deleted
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, related_name='votes')
         # Foreign Key used b/c a user's upvote can only be on one book, but a book can have many upvotes
     voted_at = models.DateTimeField(auto_now_add=True)
         # https://docs.djangoproject.com/en/2.1/ref/models/fields/
