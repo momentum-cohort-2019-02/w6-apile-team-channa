@@ -20,11 +20,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from core import views
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('core/', include('core.urls')),
-    path('', views.index, name='index'),
+    path('', include('core.urls')),
     path('accounts/', include('registration.backends.default.urls')),
 
 ] 
