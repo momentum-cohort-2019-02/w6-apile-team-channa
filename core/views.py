@@ -14,11 +14,10 @@ from django.contrib.auth.models import User
 #     template_name = 'index.html'
 
 def index(request):
-    posts = Post.objects.all()
-    submitters = Submitter.objects.all()
+    posts = Post.objects.select_related('poster')
     context = {
         'posts': posts,
-        'submitters': submitters
+        
     }
     return render(request, 'index.html', context=context)
 
@@ -58,3 +57,35 @@ def post_vote_view(request, post_pk):
 
     return HttpResponseRedirect(next)
         # redirects back to the current page
+
+class SubmitterDetailView(generic.DetailView):
+    model = Submitter
+    fields = '__all__'
+
+def SubmitsView(request, **kwargs):
+    #tendered_submitter = get_object_or_404(Submitter, pk=submitter_pk)
+    #tendered_submitter = Submitter.objects.get(pk=submitter.pk)
+    tendered_submitter = kwargs.get(submitter.id)
+    submitters_posts = Post.objects.filter(poster_id__exact=tendered_submitter)
+    submitters_comments = Comment.objects.filter(commenter_id__exact=tendered_submitter)
+    other_posts = submitters_comments.select_related('post')
+    final_post_list = other_posts.values_list("title", "poster", "description", "date_added", "url", "slug", "voted_by").union(submitters_posts.values_list("title", "poster", "description", "date_added", "url", "slug", "voted_by"))
+    submit_queryset = final_post_list.all()
+    context = {
+        'posts': post,
+        'comment': comment
+        }
+    return render(request, 'submit_list.html', context=context)
+
+def CommentListView(requst, **kwargs):
+    #tendered_submitter = get_object_or_404(Submitter, pk=submitter_pk)
+    #tendered_submitter = Submitter.objects.get(pk=submitter.pk)
+    tendered_submitter = kwargs.get(submitter.id)
+    submitters_posts = Post.objects.filter(poster_id__exact=tendered_submitter)
+    submitters_comments = Comment.objects.filter(commenter_id__exact=tendered_submitter)
+    comment_queryset = submitters_comments.all()
+    context = {
+        'post': post,
+        'comment': comment
+        }
+    return render(request, 'comment_list.html', context=context)

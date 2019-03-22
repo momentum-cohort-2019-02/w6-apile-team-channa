@@ -10,7 +10,10 @@
         <li> 
             <a href="{{ post.url}}"><b>{{ post.title }}</b></a>
                 <!--changed from post.get_absolute_url to post.url, b/c we want to see the original article, not the post-detail-->
-            <p>posted by <a href="">{{ post.poster }}</a></p>
+            <p>posted by <a href="{{ submitter.get_absolute_url }}">{{ post.poster }}</a></p>
+            <p>posted by <a href= "{% url 'submitter_detail' pk=submitter.pk % }"</a>Link</p>
+            <p>{{ submitter.user_id }}</p>
+            <p>{{ post.poster_id }}</p>
 
             <!--vote button-->
             <span>

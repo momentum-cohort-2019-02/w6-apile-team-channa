@@ -11,7 +11,9 @@ class Submitter(models.Model):
     def __str__(self):
         """String for representing the Submitter objects."""
         return self.user.username
-
+    def get_absolute_url(self):
+        return reverse('submitter_detail', args=[str(self.pk)])
+        
 class Post(models.Model):
     """Model representing a post (but not a specific post)."""
     title = models.CharField(max_length=200)
@@ -28,6 +30,9 @@ class Post(models.Model):
 
     voted_by = models.ManyToManyField(to=Submitter, related_name='voted_posts', through='Vote')
         # ManyToManyField used b/c users can vote on many posts and posts can have many user votes
+    
+    
+        
 
     class Meta:
         ordering = ['-date_added',]
