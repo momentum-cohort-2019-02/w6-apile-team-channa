@@ -1,1 +1,1 @@
-web: gunicorn apile.wsgi
+web: gunicorn apile.wsgi --log-file -
