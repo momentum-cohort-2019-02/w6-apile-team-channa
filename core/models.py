@@ -84,7 +84,7 @@ class Vote(models.Model):
         # Foreign Key used b/c a user can only upvote a book once, but a user can have many book upvotes
         # 'User' model class argument is declared to connect the relationship between the 'Favorite' and 'User' classes
         # 'on_delete=models.CASCADE' argument deletes the object containing the ForeignKey, thus deletes the instance of the 'Favorite' if 'User' is deleted
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, related_name='votes')
         # Foreign Key used b/c a user's upvote can only be on one book, but a book can have many upvotes
     voted_at = models.DateTimeField(auto_now_add=True)
         # https://docs.djangoproject.com/en/2.1/ref/models/fields/
