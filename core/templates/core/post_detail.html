@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<section>
+    <h2><a href="post.url">{{ post.title }}</a></h2>
+    <p>posted by <a href="">{{ post.poster }}</a></p>
+    <h4>Description:</h4>
+    <p>{{post.description}}</p>
+    <span>
+        {% if request.user.is_authenticated %}
+            <form class="button_inline" action="{% url 'post_vote' post_pk=post.pk %}" method="POST">
+            <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form-->
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.path }}">
+                <!--https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input-->
+            {% if post in request.user.submitter.voted_posts.all %}
+                <!--'voted_posts' is the related name of the 'voted_by' field of the 'post' model-->
+                <!--request.user.favorite_books.all-->
+                <button class="unvote_button" type="submit">Unvote this post</button>
+            {% else %}
+                <button class="vote_button" type="submit">Vote this post</button>
+            {% endif %}
+            </form>
+        {% endif %}          
+    </span>
+    <span class="post_info">Voted {{ post.votes.count }} time(s) | </span>
+    <span class="post_info">Commented {{ post.comment_set.count }} time(s) | </span>
+        <!--click on comments count to get to post-detail page-->
+    <span class="post_info">added {{ post.date_added }}</span>  
+    <h4>Comments:</h4>
+    <p>comments will go here once completed</p>  
+            
+</section>
+{% endblock %}
