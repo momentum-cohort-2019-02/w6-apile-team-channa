@@ -1,7 +1,8 @@
 from apile.settings import *
+import os
 
 import django_heroku
 
-DEBUG = False
+DEBUG = os.getenv('DEBUG', False)
 
 django_heroku.settings(locals())
