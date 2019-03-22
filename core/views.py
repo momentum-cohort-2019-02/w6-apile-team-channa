@@ -7,11 +7,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
-
-# class PostList(generic.ListView):
-#     model = Post
-#     context_object_name = 'posts' #default context object name is object_list
-#     template_name = 'index.html'
+from django.db.models import Count
 
 def index(request):
     posts = Post.objects.all()
@@ -21,6 +17,12 @@ def index(request):
         'submitters': submitters
     }
     return render(request, 'index.html', context=context)
+
+def sort_by_likes(request):
+    """Sorts by number of likes from most to least"""
+    posts = Post.objects.annotate(vote_counts=Count('votes')).order_by("-vote_counts","-date_added")
+
+    return render(request, 'index.html', {'posts': posts})
 
 class PostDetailView(generic.DetailView):
     """View class for author page of site."""
