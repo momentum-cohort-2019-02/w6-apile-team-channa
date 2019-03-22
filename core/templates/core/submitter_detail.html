@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}<h1>{{ submitter.id }}</h1>{% endblock %}
+
+{% block content%}
+<h1>{{ submitter.id }}</h1>
+
+<ul>
+    {% for post in submit_queryset %}
+
+    <li> 
+        <a href="{{ post.url}}"><b>{{ post.title }}</b></a>
+        <p>added {{ post.date_added }}</p>
+
+        <ul >
+            {% for comment in comment_queryset %}
+            <li>{{ comment.commented_at }} | {{ comment.text }}</li>
+            {% endfor %}
+        </ul>  
+
+
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

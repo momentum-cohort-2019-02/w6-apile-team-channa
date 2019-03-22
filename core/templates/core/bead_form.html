@@ -1,0 +1,21 @@
+<p>This is the bead_form template</p>
+
+{% extends "base.html" %}
+
+{% block content%}
+
+<hr>
+
+<form action = "" method="POST">
+  {% csrf_token %}
+  <hr>
+  <p>{{ form.as_p }}</p>
+  <button type="submit">Submit</button>
+</form>  
+
+
+<hr>
+
+
+  <p>END BLOCK</p><hr>    
+{% endblock %}
