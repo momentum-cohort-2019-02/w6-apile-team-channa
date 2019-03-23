@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import generic
+from django.views.generic.edit import CreateView
 from .models import Post, Submitter, Vote, Comment
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
@@ -8,6 +9,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Count
+from django.urls import reverse_lazy, reverse
+
 
 def index(request):
     posts = Post.objects.all()
@@ -61,5 +64,51 @@ def post_vote_view(request, post_pk):
     return HttpResponseRedirect(next)
         # redirects back to the current page
 
+
 class SubmitterDetailView(generic.DetailView):
     model = Submitter
+    
+class CommentCreate(LoginRequiredMixin, CreateView):
+    """
+    Form for adding a post comment. Requires login. 
+    """
+    model = Comment
+        # define the associated model
+    fields = ['text']
+        # specify the fields to dislay in the form
+        # to specify all fields use <fields = '__all__'> 
+        # initial values can also be set for each field using a dictionary
+            # 'initital = {'text': 'type your comment here'}
+
+    def get_context_data(self, **kwargs):
+        """
+        Add associated post to form template so can display its title in HTML.
+        Override 'get_context_data()' to pass additional context variables to the template
+        """
+        context = super(CommentCreate, self).get_context_data(**kwargs)
+            # Call the base implementation first to get a context
+        context['post'] = get_object_or_404(Post, slug = self.kwargs['slug'])
+            # Get the post from id and add it to the context
+        return context
+        
+    def form_valid(self, form):
+        """
+        Add commenter and associated post to form data before setting it as valid (so it is saved to model)
+        Override 'form_valid()' to save additional information when the Comment model is created
+        https://docs.djangoproject.com/en/2.1/topics/class-based-views/generic-editing/
+        """
+        
+        form.instance.commenter = self.request.user.submitter
+            # Add logged-in user as commenter of comment
+        form.instance.post=get_object_or_404(Post, slug = self.kwargs['slug'])
+            # Associate comment with post based on passed id
+        return super(CommentCreate, self).form_valid(form)
+            # Call super-class form validation behaviour
+
+    def get_success_url(self): 
+        """
+        After posting comment return to associated post.
+        Override 'get_success_url()' to provide somewhere to redirect to, which gets used in the default implementation of 'form_valid()'
+        """
+        return reverse('post-detail', kwargs={'slug': self.kwargs['slug'],})
+

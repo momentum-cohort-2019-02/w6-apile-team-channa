@@ -8,4 +8,7 @@ urlpatterns = [
     # intermediary path to display a vote and thus not specific to a template  
     path('sort/by_likes', views.sort_by_likes, name="sort_by_likes"),
     path('submitters/<int:pk>', views.SubmitterDetailView.as_view(), name="submitter_detail"), 
+    path('post/<slug:slug>/comment/', views.CommentCreate.as_view(), name='post_comment'),
+
+
 ]
