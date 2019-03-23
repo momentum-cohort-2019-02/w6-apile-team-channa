@@ -5,7 +5,7 @@
 {% block title %}<h1>{{ submitter.id }}</h1>{% endblock %}
 
 {% block content%}
-<h1>Activity by {{ submitter.id }}</h1>
+<h2>Activity by {{ user.username }} </h2>
 
 <ul>
     {% for post in submitter.post_set.all %}
