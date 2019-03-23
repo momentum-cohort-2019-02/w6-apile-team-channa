@@ -64,6 +64,10 @@ def post_vote_view(request, post_pk):
     return HttpResponseRedirect(next)
         # redirects back to the current page
 
+
+class SubmitterDetailView(generic.DetailView):
+    model = Submitter
+    
 class CommentCreate(LoginRequiredMixin, CreateView):
     """
     Form for adding a post comment. Requires login. 
@@ -107,3 +111,4 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         Override 'get_success_url()' to provide somewhere to redirect to, which gets used in the default implementation of 'form_valid()'
         """
         return reverse('post-detail', kwargs={'slug': self.kwargs['slug'],})
+

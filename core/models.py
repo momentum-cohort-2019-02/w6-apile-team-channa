@@ -13,6 +13,10 @@ class Submitter(models.Model):
     def __str__(self):
         """String for representing the Submitter objects."""
         return self.user.username
+    
+    def get_absolute_url(self):
+        """Returns the url to access a detail record for this book."""
+        return reverse('submitter_detail', args=[str(self.slug)])
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
