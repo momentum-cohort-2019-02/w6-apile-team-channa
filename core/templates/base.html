@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% block meta %}{% endblock %}
-    <title>Home Advantage {% block title %}Register{% endblock title %}</title>
-        <!--added title to browser tab-->
+     <!--added title to browser tab-->
+    <title>Home Advantage 
+    {% block title %}Register{% endblock title %}</title>
+    
+    {% block meta %}
+    <h1>Home Advantage </h1>  
+    <p>A place to compile articles and resources about homelessness in the Triangle Area of NC</p>  
+        
+    {% endblock %}
+       
     
 </head>
 <body>

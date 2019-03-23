@@ -60,3 +60,6 @@ def post_vote_view(request, post_pk):
 
     return HttpResponseRedirect(next)
         # redirects back to the current page
+
+class SubmitterDetailView(generic.DetailView):
+    model = Submitter
