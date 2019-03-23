@@ -29,7 +29,18 @@
         <!--click on comments count to get to post-detail page-->
     <span class="post_info">added {{ post.date_added }}</span>  
     <h4>Comments:</h4>
-    <p>comments will go here once completed</p>  
+    <section>
+        {% for comment in post.comment_set.all %}
+            <hr>
+            <p>{{comment.commenter}} ({{comment.commented_at}}) - {{comment.text}}</p>
+        {% endfor %}
+            <hr>
+        {% if user.is_authenticated %}
+            <a href="{% url 'post_comment' post.slug %}">Add a new comment</a></p>
+        {% else %}
+            <p><a href="{% url 'auth_login'%}?next={{request.path}}">Login</a> to add a new comment</p>
+            {% endif %}
+    </section>
             
 </section>
 {% endblock %}
