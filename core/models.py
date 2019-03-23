@@ -81,6 +81,10 @@ class Post(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
         return reverse('post-detail', args=[str(self.slug)])
+    
+    def get_poster_url(self):
+        """Returns the url to access a detail record for this book."""
+        return reverse('submitter_detail', args=[str(self.poster)])
 
 class Vote(models.Model):
     voter = models.ForeignKey(Submitter, on_delete=models.CASCADE, null=True)

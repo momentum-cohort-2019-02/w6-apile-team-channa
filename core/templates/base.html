@@ -11,17 +11,14 @@
     {% block title %}Register{% endblock title %}</title>
     
     {% block meta %}
-    <h1>Home Advantage </h1>  
-    <p>A place to compile articles and resources about homelessness in the Triangle Area of NC</p>  
-        
     {% endblock %}
        
     
 </head>
 <body>
+    <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'img/banner2.png'%}" ></a>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'img/logo.png'%}" width="50px"></a>
             
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,7 +26,9 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
+                        
                         <a class="nav-link active" href="{% url 'index' %}">Home</a>
+                        
                     </li>
                 </ul>
                 {% if user.is_authenticated %}
