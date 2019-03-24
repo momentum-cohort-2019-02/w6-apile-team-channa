@@ -98,7 +98,7 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         https://docs.djangoproject.com/en/2.1/topics/class-based-views/generic-editing/
         """
         
-        form.instance.commenter = self.request.user.submitter
+        form.instance.commenter = self.request.user.submitter.id
             # Add logged-in user as commenter of comment
         form.instance.post=get_object_or_404(Post, slug = self.kwargs['slug'])
             # Associate comment with post based on passed id
@@ -111,4 +111,13 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         Override 'get_success_url()' to provide somewhere to redirect to, which gets used in the default implementation of 'form_valid()'
         """
         return reverse('post-detail', kwargs={'slug': self.kwargs['slug'],})
+
+class PostCreate(LoginRequiredMixin, CreateView):
+    """
+    Form for adding a post. Requires login. 
+    """
+    model = Post
+        # define the associated model
+    fields = ['title', 'description', 'url']
+        # specify the fields to dislay in the form
 
