@@ -3,8 +3,14 @@
 
 {% block content %}
 <section>
-    <h2><a href="post.url">{{ post.title }}</a></h2>
-    <p>posted by <a href="">{{ post.poster }}</a></p>
+    <h2>
+        {% if post.url %} <!--if the post is a link then have the title link to the url-->
+            <a href="{{ post.url}}">{{ post.title }}</a>
+        {% else %} <!--otherwise, if the post is a question then have the title link to the post-detail page-->
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        {% endif %}
+    </h2>
+    <p>posted by <a href="{% url 'submitter_detail' pk=post.poster_id %}">{{ post.poster }}</a></p>
     <h4>Description:</h4>
     <p>{{post.description}}</p>
     <span>
