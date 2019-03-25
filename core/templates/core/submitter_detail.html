@@ -11,7 +11,12 @@
     {% for post in submitter.post_set.all %}
 
     <li> 
-        <a href="{{ post.url}}"><b>{{ post.title }}</b></a>
+        {% if post.url %} <!--if the post is a link then have the title link to the url-->
+            <a href="{{ post.url}}"><b>{{ post.title }}</b></a>
+        {% else %} <!--otherwise, if the post is a question then have the title link to the post-detail page-->
+            <a href="{{ post.get_absolute_url }}"><b>{{ post.title }}</b></a>
+        {% endif %}
+        
         <p>added {{ post.date_added }}</p>
 
         <ul >
