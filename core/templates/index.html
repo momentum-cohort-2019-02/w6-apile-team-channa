@@ -14,8 +14,11 @@
         {% for post in posts %} 
         <article class="center mw10 mw10-ns br3 hidden ba b--black-10 mv4">
             <div class="card-header">
-                <a href="{{ post.url}}"><b>{{ post.title }}</b></a>
-                <!--changed from post.get_absolute_url to post.url, b/c we want to see the original article, not the post-detail-->
+                {% if post.url %} <!--if the post is a link then have the title link to the url-->
+                    <a href="{{ post.url}}"><b>{{ post.title }}</b></a>
+                {% else %} <!--otherwise, if the post is a question then have the title link to the post-detail page-->
+                    <a href="{{ post.get_absolute_url }}"><b>{{ post.title }}</b></a>
+                {% endif %}
             </div>
             <div class="card-body p3">
                 <blockquote class="blockquote mb-0">
