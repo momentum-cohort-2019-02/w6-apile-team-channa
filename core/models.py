@@ -53,6 +53,12 @@ class Post(models.Model):
         self.set_slug()
         super().save(*args, **kwargs)
 
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            # Only set added_by during the first save.
+            obj.poster = request.user
+        super().save_model(request, obj, form, change)
+
     def set_slug(self):
         if self.slug:
             return
@@ -123,3 +129,8 @@ class Comment(models.Model):
             titlestring = self.text
         return titlestring
        
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            # Only set added_by during the first save.
+            obj.commenter = request.user
+        super().save_model(request, obj, form, change)
