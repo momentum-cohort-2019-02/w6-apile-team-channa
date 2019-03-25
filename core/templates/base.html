@@ -31,6 +31,9 @@
                         <a class="nav-link active" href="{% url 'index' %}">Home</a>
                         
                     </li>
+                    {% if user.is_authenticated %}
+                    <a class="nav-link active" href="{% url 'post_form' %}">Add a Post</a>
+                    {% endif %}
                 </ul>
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav">
