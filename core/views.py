@@ -132,8 +132,6 @@ class PostCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.poster = self.request.user.submitter
             # Add logged-in user as commenter of comment
-        form.instance.post=get_object_or_404(Post, slug = self.kwargs['slug'])
-            # Associate comment with post based on passed id
         return super(PostCreate, self).form_valid(form)
             # Call super-class form validation behaviour
 
