@@ -27,6 +27,11 @@ def sort_by_likes(request):
 
     return render(request, 'index.html', {'posts': posts})
 
+def sort_by_reverse(request):
+    """Sorts the date with oldest posts firsts"""
+    posts = Post.objects.all().order_by('date_added')
+    return render(request, 'index.html', {'posts': posts})
+
 class PostDetailView(generic.DetailView):
     """View class for author page of site."""
     model = Post
