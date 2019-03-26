@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+{% load el_pagination_tags %}
 
 {% block title %}{% endblock %}
 
@@ -11,6 +12,7 @@
     </div>
 
     <div>
+    {% paginate posts %}
         {% for post in posts %} 
         <article class="center mw10 mw10-ns br3 hidden ba b--black-10 mv4">
             <div class="card-header">
@@ -46,6 +48,7 @@
             </div>
         </article>
         {% endfor %}
+    {% show_pages %}
     </div>
 
 

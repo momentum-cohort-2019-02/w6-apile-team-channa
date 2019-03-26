@@ -14,6 +14,7 @@ django-debug-toolbar = "*"
 gunicorn = "*"
 django-crispy-forms = "*"
 django-heroku = "*"
+django-el-pagination = "*"
 
 [requires]
 python_version = "3.7"

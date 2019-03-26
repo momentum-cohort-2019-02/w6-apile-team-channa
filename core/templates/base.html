@@ -16,6 +16,16 @@
        
     
 </head>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <div {% if message.tags%} class="notification is-primary {{ message.tags }}"{% endif %}>
+                {{ message }}
+            </div>
+    
+        {% endfor %}
+    </ul>
+{% endif %}
 <body>
     <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'img/banner2.png'%}" ></a>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

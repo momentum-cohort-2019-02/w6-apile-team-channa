@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 from .models import Post, Submitter, Vote, Comment
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
@@ -73,7 +73,7 @@ def post_vote_view(request, post_pk):
 class SubmitterDetailView(generic.DetailView):
     model = Submitter
     
-class CommentCreate(LoginRequiredMixin, CreateView):
+class CommentCreate(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     """
     Form for adding a post comment. Requires login. 
     """
@@ -84,6 +84,8 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         # to specify all fields use <fields = '__all__'> 
         # initial values can also be set for each field using a dictionary
             # 'initital = {'text': 'type your comment here'}
+    success_message = "Your post was successfully created"
+    # success_url = '/posts/'
 
     def get_context_data(self, **kwargs):
         """
@@ -102,7 +104,6 @@ class CommentCreate(LoginRequiredMixin, CreateView):
         Override 'form_valid()' to save additional information when the Comment model is created
         https://docs.djangoproject.com/en/2.1/topics/class-based-views/generic-editing/
         """
-    
        
         form.instance.commenter = self.request.user.submitter
             # Add logged-in user as commenter of comment
